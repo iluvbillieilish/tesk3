@@ -1,0 +1,217 @@
+/* ==========================================================================
+   1. 雜誌風格基礎設定（🛠️ 已修改背景為由下深藍往上漸層白）
+   ========================================================================== */
+body {
+  margin: 0;
+  padding: 40px 20px;
+  
+  /* 💡 核心修改：線性漸層設定為 to top (往上)，從底部的深藍色 (#0a192f) 往上漸層到純白 (#ffffff) */
+  background: linear-gradient(to top, #0a192f 0%, #1e3a8a 40%, #ffffff 100%);
+  background-attachment: fixed; /* 讓背景固定，不會隨著網頁捲動而斷掉 */
+  
+  color: #ffffff;
+  font-family: "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+}
+
+/* ==========================================================================
+   2. 技術要求：電腦桌機版 CSS Grid 佈局結構 (直式海報感)
+   ========================================================================== */
+.magazine-grid {
+  display: grid;
+  max-width: 850px; 
+  margin: 0 auto;
+  gap: 25px; 
+  
+  grid-template-columns: repeat(3, minmax(220px, 1fr)); 
+  grid-template-rows: auto auto auto auto;
+  
+  grid-template-areas: 
+    "title   title   title"
+    "sidebar hero    hero"
+    "caption hero    hero"
+    "quote   body    body";
+}
+
+/* ==========================================================================
+   3. 六個區塊的前後重疊 (Overlap) 與跨格技術設定
+   ========================================================================== */
+
+/* 區塊一：主標題區 (Title) */
+.main-title {
+  grid-area: title;
+  position: relative;
+  text-align: center;
+  padding: 10px 0;
+  z-index: 1; 
+}
+.brand-sub {
+  font-size: 16px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #3b82f6; /* 🛠️ 修改：配合藍色背景，提示字改為亮藍色 */
+  margin-bottom: 5px;
+}
+/* SONY 字樣放大 160px */
+.brand-main {
+  font-size: 140px; 
+  font-weight: 900;
+  margin: 0;
+  line-height: 0.9;
+  letter-spacing: -5px;
+  /* 🛠️ 修改：因為網頁上方變成了白色，SONY 字樣改為深藍黑色 (#0a192f)，才能顯現出來 */
+  color: #0a192f; 
+  text-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* 區塊二：大圖主視覺 (Hero) —— 圖片大幅度放大，且往上產生重疊效果 */
+.hero-image-block {
+  grid-area: hero;
+
+  border-radius: 12px;
+  overflow: hidden;
+rgba(0,0,0,0.4);
+  
+  margin-top: -120px; 
+  position: relative;
+  z-index: 5; /* 確保疊在 SONY 的「前方」 */
+}
+.hero-img {
+  width: 120%;
+  height: 100%;
+  min-height: 400px; 
+  object-fit: cover;  
+  display: block;
+}
+
+/* 區塊三：引言或摘錄區 (Pull-quote) */
+.pull-quote {
+  grid-area: quote;
+  margin: 0;
+  padding: 2px;
+  border-left: 4px solid #3b82f6; /* 🛠️ 修改：邊條改為科技藍 */
+  background: rgba(255, 255, 255, 0.1); /* 提高透明底的白度，適應深色背景 */
+  border-radius: 0 8px 8px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.quote-sub {
+  font-size: 12px;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  margin: 0 0 8px 0;
+}
+.quote-main {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.5;
+  margin: 0;
+  color: #60a5fa; /* 🛠️ 修改：字體改為亮藍色 */
+}
+
+/* 區塊四：正文區域 (Body) */
+.body-text-block {
+  grid-area: body;
+  background-color: #ffffff;
+  color: #222222;
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.body-text-block h2 {
+  margin-top: 0;
+  color: #0a192f; /* 🛠️ 修改：內文標題改為深藍色 */
+  font-size: 22px;
+  border-bottom: 2px solid #0a192f;
+  padding-bottom: 8px;
+}
+.body-text-block p {
+  line-height: 1.8;
+  font-size: 15px;
+  text-align: justify;
+}
+
+/* 區塊五：包含補充資訊的側邊欄 (Sidebar) */
+.sidebar-block {
+  grid-area: sidebar;
+  /* 🛠️ 修改：側邊欄漸層調整為深科技藍到純黑 */
+  background: linear-gradient(135deg, #0f172a, #020617);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.sidebar-tag {
+  background-color: #3b82f6; /* 🛠️ 修改：標籤改為藍色 */
+  color: white;
+  display: inline-block;
+  padding: 3px 15px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+.spec-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.spec-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 13px;
+}
+
+/* 區塊六：帶有說明的小圖片 (Caption) */
+.caption-block {
+  grid-area: caption;
+  margin: 0;
+  background-color: rgba(15, 23, 42, 0.6); /* 🛠️ 修改：改為深藍色半透明底 */
+  padding: 15px;
+  border-radius: 12px;
+}
+.caption-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+figcaption {
+  font-size: 12px;
+  color: #e2e8f0;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   4. 手機版響應式斷點 (≤ 480px) 
+   ========================================================================== */
+@media (max-width: 480px) {
+  body {
+    padding: 20px 12px;
+    /* 手機版因為長度拉長，微調漸層比重，讓底部深藍色提早出現 */
+    background: linear-gradient(to top, #0a192f 0%, #1e3a8a 60%, #ffffff 100%);
+  }
+  
+  .magazine-grid {
+    grid-template-columns: 1fr; 
+    grid-template-rows: auto;
+    gap: 20px;
+    
+    grid-template-areas: 
+      "title"
+      "hero"
+      "quote"
+      "body"
+      "sidebar"
+      "caption";
+  }
+  
+  .brand-main {
+    font-size: 85px; 
+  }
+  
+  .hero-image-block {
+    margin-top: -20px; 
+    height: 400px;    
+  }
+}
